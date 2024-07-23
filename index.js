@@ -1,8 +1,9 @@
+//Require inquirer, file system, and the Triangle, Circle, and Square classes from shapes.js
 const inquirer = require('inquirer')
-const {Triangle,Circle, Square} = require('./lib/shapes.js')
+const {Triangle,Circle,Square} = require('./lib/shapes.js')
 const { writeFile } = require('fs')
 
-
+//Diplay the prompts in the console
 inquirer
     .prompt([
         {
@@ -28,7 +29,7 @@ inquirer
         },
     ]).then(({text, textFill, shape, shapeFill}) =>
     {
-       
+       //Create the new shape
         let newShape;
         switch(shape){
             case 'Triangle':
@@ -43,17 +44,22 @@ inquirer
 
         }
         
+        //Call writeToFile function
         writeToFile(newShape)
 
     })
 
-    function writeToFile(newShape){
-        const fileContent=`<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+//Write the SVG file
+function writeToFile(newShape){
+    //Literal template for the file content
+    const fileContent=`<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
 
   ${newShape.render()}
 
   ${newShape.renderText()}
 
 </svg>`
-        writeFile(`logo.svg`, fileContent,err => err ? console.log('error creating file') : console.log( "Generated logo.svg"))
-    }
+
+    //Create the SVG file and write the content to it
+    writeFile(`logo.svg`, fileContent,err => err ? console.log('error creating file') : console.log( "Generated logo.svg"))
+}
